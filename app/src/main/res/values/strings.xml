@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">VCare</string>
+    <string name="app_version">App Version : %s</string>
+    <string name="title_hive_school">VCare</string>
+    <string name="title_home">Home</string>
+    <string name="title_face">Face Scan</string>
+    <string name="title_students">Students</string>
+    <string name="title_my_children">My Children</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="menu_face_recognition">Face Recognition</string>
+    <string name="menu_settings">Settings</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="news_feed_empty_title_teacher">Let\'s create new post</string>
+    <string name="news_feed_empty_subtitle_teacher">Your post will show up here.</string>
+    <string name="news_feed_empty_title_parent">There\'re no posts to show</string>
+    <string name="news_feed_empty_subtitle_parent">Your school\'s post will show up here.</string>
+    <string name="news_feed_create">Create</string>
+    <string name="content_description">Content Description</string>
+
+    <string name="members_empty_title_teacher">Get started by adding members</string>
+    <string name="members_empty_subtitle_teacher">Hive is better with other.</string>
+    <string name="members_empty_title_parent">There\'re no members to show</string>
+    <string name="members_empty_subtitle_parent">School\'s members view show up here.</string>
+    <string name="member_add">Add Member</string>
+
+    <string name="camera_request_rationale">Camera app requires camera access</string>
+    <string name="identify_face">Identify Face</string>
+    <string name="face_scan_title">Face Scan</string>
+    <string name="face_not_found">Face not found</string>
+    <string name="error_retrieving_information">Error retrieving information</string>
+    <string name="error_retrieving_student">Error retrieving information</string>
+
+    <string name="parent_id">ID : %s</string>
+    <string name="similarity_string">Similarity : %s</string>
+
+    <string name="students_title">Students</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="students_empty_title">There\'s no student here</string>
+    <string name="students_empty_subtitle">Please add classroom and student data.</string>
+
+    <string name="messages_empty_title">There\'s no messages</string>
+    <string name="messages_empty_subtitle">Your notification messages will show up here.</string>
+
+    <string name="requests_empty_title">There\'s no requests</string>
+    <string name="requests_empty_subtitle">Your request messages will show up here.</string>
+
+    <string name="incorrect_user_id">incorrect username, password or schoolID.</string>
+    <string name="bottom_sheet_title">Create</string>
+    <string name="bottom_sheet_menu_title1">New Member</string>
+    <string name="bottom_sheet_menu_title2">New Request</string>
+    <string name="bottom_sheet_menu_title3">New Student</string>
+
+    <string name="new_member_title">Add people to join school</string>
+    <string name="new_member_subtitle">Fill required information below to add new people to join this school.</string>
+    <string name="new_member_full_name">Full Name</string>
+    <string name="new_member_tel">Tel.</string>
+    <string name="add_new_member">Add New Member</string>
+    <string name="add_new_member_image_description">Please take a photo of identifyParentResponse\'s face or
+        choose from gallery.
+    </string>
+    <string name="title_logout">Logout</string>
+    <string name="student_details_title">Student Details</string>
+    <string name="add_new_member_title">Add New Member</string>
+    <string name="make_pickup_request">Make Pickup Request</string>
+    <string name="request_title">Request</string>
+    <string name="please_take_a_photo_desc">Please take a photo of representative person.</string>
+    <string name="student_list">Student List :</string>
+    <string name="parent_pick_up_title">Parent Information</string>
+    <string name="send_confirmation">Send Confirmation</string>
+    <string name="parent_of_string">Parent of :</string>
+    <string name="send_pick_up_request">Send Pick Up Request</string>
+    <string name="my_account">My Account</string>
+    <string name="title_my_account">My Account</string>
+
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+    <string name="ok">Ok</string>
+
+
+</resources>

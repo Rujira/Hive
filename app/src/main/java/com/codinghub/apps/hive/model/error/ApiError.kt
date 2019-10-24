@@ -1,0 +1,20 @@
+package com.codinghub.apps.hive.model.error
+
+enum class ApiError {
+    SCHOOL_LOGIN,
+    LIST_GRADE,
+    LIST_ROOM,
+    LIST_STUDENT,
+    GET_PARENT_INFO,
+    UPDATE_PARENT_INFO,
+    ADD_SENDER,
+    IDENTIFY_PARENT,
+    PARENTS,
+    STUDENTS,
+    NEW_PARENT,
+    NOTIFY_PARENT,
+    PICK_UP_REQUEST,
+    GET_PICK_UP_MESSAGE,
+    GET_PICK_UP_REQUEST,
+    APPROVE_PICK_UP_REQUEST
+}

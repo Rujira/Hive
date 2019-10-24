@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.facerecognition.FaceRecognitionActivity"
+        android:keepScreenOn="true">
+
+    <com.codinghub.apps.hive.kioskutilities.camera.CameraSourcePreview
+            android:id="@+id/preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="731dp" tools:layout_editor_absoluteX="411dp">
+
+        <com.codinghub.apps.hive.kioskutilities.camera.GraphicOverlay
+                android:id="@+id/faceOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+    </com.codinghub.apps.hive.kioskutilities.camera.CameraSourcePreview>
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/changeCameraButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="96dp"
+            android:layout_marginEnd="16dp"
+            android:text="FRONT"
+            android:textColor="@color/whiteColor"
+            app:icon="@drawable/ic_switch_camera"
+            app:iconTint="@color/whiteColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/whiteColor"
+            app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/autoSnapButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="96dp"
+            android:text="AUTO SNAP"
+            android:textColor="@color/whiteColor"
+            app:iconTint="@color/whiteColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/whiteColor"
+            app:strokeWidth="1dp" />
+
+    <Button
+            android:id="@+id/identifyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="56dp"
+            android:backgroundTint="@color/colorSecondaryPurple"
+            android:text="@string/identify_face"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

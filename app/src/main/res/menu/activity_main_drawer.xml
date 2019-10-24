@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+    <group  android:id="@+id/group1"
+            android:checkableBehavior="none">
+
+        <item android:id="@+id/nav_face_recognition"
+            android:icon="@drawable/ic_face"
+            android:title="@string/menu_face_recognition"/>
+
+<!--        <item android:id="@+id/nav_profile"-->
+<!--              android:icon="@drawable/ic_profile"-->
+<!--              android:title="@string/menu_profile"/>-->
+
+<!--        <item android:id="@+id/nav_how_to"-->
+<!--              android:icon="@drawable/ic_how_to"-->
+<!--              android:title="@string/menu_how_to"/>-->
+
+    </group>
+
+    <group  android:id="@+id/group2"
+            android:checkableBehavior="none">
+
+        <item android:id="@+id/nav_settings"
+              android:icon="@drawable/ic_settings"
+              android:title="@string/menu_settings"/>
+
+<!--        <item android:id="@+id/nav_tos"-->
+<!--              android:icon="@drawable/ic_tos"-->
+<!--              android:title="@string/menu_term_of_service"/>-->
+
+<!--        <item android:id="@+id/nav_about"-->
+<!--              android:icon="@drawable/ic_about"-->
+<!--              android:title="@string/menu_about"/>-->
+
+    </group>
+
+    <group android:id="@+id/group3"
+           android:checkableBehavior="none">
+
+        <item android:id="@+id/nav_logout"
+              android:icon="@drawable/ic_logout"
+              android:title="@string/title_logout"/>
+    </group>
+
+</menu>

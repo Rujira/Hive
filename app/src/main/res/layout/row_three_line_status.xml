@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/rowImageView"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/circular" />
+
+    <TextView
+            android:id="@+id/rowTitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rowImageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/rowSubtitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/rowTitleTextView"
+            app:layout_constraintStart_toEndOf="@+id/rowImageView"
+            app:layout_constraintTop_toBottomOf="@+id/rowTitleTextView" />
+
+    <View
+            android:id="@+id/rowListDivider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/rowSubtitleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/statusChip" />
+
+    <TextView
+            android:id="@+id/rowDateTimeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="@+id/statusChip"
+            app:layout_constraintEnd_toEndOf="@+id/rowSubtitleTextView"
+            app:layout_constraintStart_toEndOf="@+id/statusChip"
+            app:layout_constraintTop_toTopOf="@+id/statusChip" />
+
+    <com.google.android.material.chip.Chip
+            android:id="@+id/statusChip"
+            style="@style/Widget.MaterialComponents.Chip.Action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Waiting"
+            android:textColor="@color/whiteColor"
+            app:chipBackgroundColor="@color/waitingColor"
+            app:chipIcon="@drawable/ic_waiting"
+            app:chipIconTint="@color/whiteColor"
+            app:layout_constraintStart_toStartOf="@+id/rowSubtitleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/rowSubtitleTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

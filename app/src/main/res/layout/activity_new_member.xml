@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.newmember.NewMemberActivity">
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/newMemberSubtitleTextView" android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" android:id="@+id/userNameTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:hint="@string/new_member_full_name"
+                android:focusable="auto" android:id="@+id/userNameTextView"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/userNameTextInputLayout" android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" android:id="@+id/telTextInputLayout"
+            app:boxStrokeColor="@color/colorSecondaryPurple"
+            app:hintTextColor="@color/colorSecondaryPurple">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:hint="@string/new_member_tel"
+                android:focusable="auto" android:id="@+id/telTextView"
+                android:textCursorDrawable="@color/colorSecondaryPurple"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+            android:text="@string/new_member_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/newMemberTitleTextView" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:textStyle="bold"/>
+
+    <TextView
+            android:text="@string/new_member_subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/newMemberSubtitleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/newMemberTitleTextView" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="24dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp" android:layout_marginTop="8dp" android:textAlignment="center"/>
+
+
+
+    <Button
+            android:text="@string/add_new_member"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/addNewMemberButton" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:backgroundTint="@color/colorSecondaryPurple"
+            android:textColor="@android:color/white"/>
+
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp" app:srcCompat="@drawable/ic_take_photo"
+            android:id="@+id/addNewMemberImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="24dp" android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/newMemberImageDescriptionTextView"
+            android:contentDescription="@string/content_description"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/telTextInputLayout"/>
+
+    <TextView
+            android:text="@string/add_new_member_image_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/newMemberImageDescriptionTextView" android:layout_marginBottom="36dp"
+            app:layout_constraintBottom_toTopOf="@+id/addNewMemberButton" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp" android:textAlignment="center"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

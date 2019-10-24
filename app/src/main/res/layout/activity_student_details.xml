@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ui.students.legacy.StudentDetailsActivity">
+
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="200dp" app:srcCompat="@color/colorPrimary"
+            android:id="@+id/studentDetailImageViewBG1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/studentDetailImageViewBG2"
+            app:layout_constraintBottom_toTopOf="@+id/studentDetailImageViewBG2"
+            android:contentDescription="@string/content_description"
+            app:layout_constraintTop_toTopOf="parent"/>
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp" app:srcCompat="@android:color/white" android:id="@+id/studentDetailImageViewBG2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/studentDetailImageViewBG1"
+            android:contentDescription="@string/content_description"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="72dp"
+            android:layout_marginEnd="8dp" android:layout_marginStart="8dp" android:layout_marginBottom="8dp">
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp" android:layout_marginEnd="8dp" android:layout_marginTop="8dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button"
+                        android:text="@string/make_pickup_request"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/makeRequestButton" android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="@color/colorSecondaryPurple"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/studentDetailFullNameTextView" app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="16dp" android:layout_marginTop="70dp"
+                        app:layout_constraintTop_toTopOf="parent" android:textSize="18sp" android:textStyle="bold"
+                        android:textColor="@android:color/black" android:textAlignment="center"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/studentDetailIDRoomTextView" android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/studentDetailFullNameTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="16dp" android:textAlignment="center"/>
+                <View
+                        android:id="@+id/divider2"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/studentDetailIDRoomTextView"
+                        android:layout_marginTop="16dp"/>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/teacherNameTextInputLayout"
+                        style="@style/AppTextField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="Teacher Name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider2"
+                        app:startIconDrawable="@drawable/ic_teacher">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/teacherNameTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="true"
+                            android:inputType="textPersonName"
+                            android:longClickable="false"
+                            android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/parentNameTextInputLayout"
+                        style="@style/AppTextField"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="Parent Name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/teacherNameTextInputLayout"
+                        app:startIconDrawable="@drawable/ic_teacher">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/parentNameTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="true"
+                            android:inputType="textPersonName"
+                            android:longClickable="false"
+                            android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/studentDetailImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/content_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/circular"
+            tools:srcCompat="@drawable/circular" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

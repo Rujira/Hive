@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFA000</color>
+    <color name="colorPrimaryDark">#c67100</color>
+    <color name="colorAccent">#6200EE</color>
+    <color name="colorSecondaryPurple">#6200EE</color>
+    <color name="whiteColor">#FFFFFF</color>
+    <color name="declineColor">#B71C1C</color>
+    <color name="approveColor">#7CB342</color>
+    <color name="waitingColor">#FFB300</color>
+    <color name="grayColor">#E0E0E0</color>
+    <color name="lightGrayColor">#eceff1</color>
+
+    <color name="successColor">#7CB342</color>
+    <color name="warningColor">#FFB300</color>
+</resources>
+
