@@ -128,7 +128,7 @@ class MyAccountFragment : Fragment(), MyStudentAdapter.MyStudentListRecyclerView
                     schoolIDTextView.text = "School : ${parentInfoData.school_id}"
 
                     senderRecyclerView.layoutManager = LinearLayoutManager(context)
-                    senderRecyclerView.adapter = SenderAdapter(either.data.senders, this)
+                    senderRecyclerView.adapter = SenderAdapter(either.data.senders.distinctBy { it.parent_pid }, this)
 
                     if (either.data.senders.size >= 3) {
                         addSenderButton.visibility = View.GONE
