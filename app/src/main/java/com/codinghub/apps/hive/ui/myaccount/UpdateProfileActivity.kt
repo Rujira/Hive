@@ -220,7 +220,7 @@ class UpdateProfileActivity : AppCompatActivity() {
     }
 
     private fun updateUI() {
-        if(fullnameTextView.text!!.isNotEmpty() && telTextView.text!!.isNotEmpty() && isTakePhoto) {
+        if(fullnameTextView.text!!.isNotEmpty() && telTextView.text!!.length == 10 && isTakePhoto) {
             enableUpdateProfileButton()
         } else {
             disableUpdateProfileButton()
