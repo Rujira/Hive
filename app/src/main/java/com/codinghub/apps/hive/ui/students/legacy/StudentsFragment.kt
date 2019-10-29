@@ -63,24 +63,25 @@ class StudentsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        studentsViewModel.getStudents().observe(this, Observer<Either<StudentResponse>> { either ->
-            if (either?.status == Status.SUCCESS && either.data != null) {
-                if (either.data.ret == 0) {
-                    Log.d(TAG, "StudentData : ${either.data.students}")
-                    configureRoomViewPager(either.data.students)
-
-                } else {
-                    emptyStudentLayout.visibility = View.VISIBLE
-                    Toast.makeText(context,R.string.error_retrieving_student, Toast.LENGTH_SHORT).show()
-                }
-            } else {
-                if (either?.error == ApiError.STUDENTS) {
-                    emptyStudentLayout.visibility = View.VISIBLE
-                    Toast.makeText(context,R.string.error_retrieving_student, Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
+//        studentsViewModel.getStudents().observe(this, Observer<Either<StudentResponse>> { either ->
+//            if (either?.status == Status.SUCCESS && either.data != null) {
+//                if (either.data.ret == 0) {
+//                    Log.d(TAG, "StudentData : ${either.data.students}")
+//                    configureRoomViewPager(either.data.students)
+//
+//                } else {
+//                    emptyStudentLayout.visibility = View.VISIBLE
+//                    Toast.makeText(context,R.string.error_retrieving_student, Toast.LENGTH_SHORT).show()
+//                }
+//            } else {
+//                if (either?.error == ApiError.STUDENTS) {
+//                    emptyStudentLayout.visibility = View.VISIBLE
+//                    Toast.makeText(context,R.string.error_retrieving_student, Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        })
     }
+
 
     private fun configureRoomViewPager(students: List<StudentData>) {
 
@@ -105,7 +106,5 @@ class StudentsFragment : Fragment() {
         return rooms.distinct()
 
     }
-
-
 
 }

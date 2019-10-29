@@ -87,7 +87,6 @@ class MessageListFragment : Fragment(), MessageListAdapter.MessageListRecyclerVi
 
         configureUI(notificationsViewModel.getCurrentUser().first(), false)
 
-
     }
 
     private fun configureUI(currentUser: CurrentUser, isOnRefresh: Boolean) {

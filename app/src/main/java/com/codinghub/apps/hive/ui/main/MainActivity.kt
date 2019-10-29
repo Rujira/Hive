@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val fragment = when (item.itemId) {
             R.id.navigation_home -> homeFragment
-            R.id.navigation_students -> gradeFragment
+            R.id.navigation_students -> studentFragment
            // R.id.navigation_face -> faceFragment
             R.id.navigation_my_account -> myAccountFragment
             R.id.navigation_notifications -> notificationsFragment
@@ -101,11 +101,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         when(mainViewModel.getCurrentUser().first().role) {
             UserRole.ADMIN -> {
-                switchToFragment(gradeFragment)
+                switchToFragment(studentFragment)
 
             }
             UserRole.TEACHER -> {
-                switchToFragment(gradeFragment)
+                switchToFragment(studentFragment)
             }
             UserRole.PARENT -> {
                 nav_view.menu.findItem(R.id.nav_face_recognition).isVisible = false
