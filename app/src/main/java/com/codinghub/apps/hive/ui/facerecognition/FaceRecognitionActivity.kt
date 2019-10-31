@@ -120,7 +120,7 @@ class FaceRecognitionActivity : AppCompatActivity(), GraphicFaceTracker.GraphicF
         mGraphicOverlay = findViewById<View>(R.id.faceOverlay) as GraphicOverlay
         val rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
         if (rc == PackageManager.PERMISSION_GRANTED) {
-            createCameraSource(CameraSource.CAMERA_FACING_BACK)
+            createCameraSource(CameraSource.CAMERA_FACING_FRONT)
         } else {
             requestCameraPermission()
         }
@@ -131,7 +131,7 @@ class FaceRecognitionActivity : AppCompatActivity(), GraphicFaceTracker.GraphicF
                 if (mCameraSource != null) {
                     mCameraSource!!.release()
                 }
-                createCameraSource(CameraSource.CAMERA_FACING_BACK)
+                createCameraSource(CameraSource.CAMERA_FACING_FRONT)
             } else {
                 changeCameraButton.text = "BACK"
                 if (mCameraSource != null) {
@@ -262,7 +262,7 @@ class FaceRecognitionActivity : AppCompatActivity(), GraphicFaceTracker.GraphicF
 
         if (grantResults.size != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Log.d(TAG, "Camera permission granted - initialize the camera source")
-            createCameraSource(CameraSource.CAMERA_FACING_BACK)
+            createCameraSource(CameraSource.CAMERA_FACING_FRONT)
             return
         }
 
