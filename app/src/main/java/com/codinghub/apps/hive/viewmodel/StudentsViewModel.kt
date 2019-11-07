@@ -8,8 +8,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.codinghub.apps.hive.app.Injection
 import com.codinghub.apps.hive.model.error.Either
+import com.codinghub.apps.hive.model.login.CurrentUser
+import com.codinghub.apps.hive.model.myaccount.teacher.TeacherUserInfoRequest
+import com.codinghub.apps.hive.model.myaccount.teacher.TeacherUserInfoResponse
 import com.codinghub.apps.hive.model.pickuprequest.PickUpRequest
 import com.codinghub.apps.hive.model.pickuprequest.PickUpResponse
+import com.codinghub.apps.hive.model.preferences.AppPrefs
 import com.codinghub.apps.hive.model.student.grade.GradeRequest
 import com.codinghub.apps.hive.model.student.grade.GradeResponse
 import com.codinghub.apps.hive.model.student.room.RoomRequest
@@ -32,6 +36,15 @@ class StudentsViewModel(application: Application) : AndroidViewModel(application
 
     fun modifyImageOrientation(activity: Activity, bitmap: Bitmap, uri: Uri): Bitmap {
         return repository.modifyImageOrientation(activity, bitmap, uri)
+    }
+
+    fun getTeacherInfo(teacher_id: String, school_id: String): LiveData<Either<TeacherUserInfoResponse>> {
+        val request = TeacherUserInfoRequest(teacher_id, school_id)
+        return repository.getTeacherInfo(request)
+    }
+
+    fun getCurrentUser(): List<CurrentUser> {
+        return AppPrefs.getCurrentUser()
     }
 
     fun listGrade(school_id: String): LiveData<Either<GradeResponse>> {

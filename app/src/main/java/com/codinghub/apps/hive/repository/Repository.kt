@@ -11,6 +11,8 @@ import com.codinghub.apps.hive.model.identifyparent.IdentifyParentResponse
 import com.codinghub.apps.hive.model.login.LoginRequest
 import com.codinghub.apps.hive.model.login.LoginResponse
 import com.codinghub.apps.hive.model.myaccount.parent.*
+import com.codinghub.apps.hive.model.myaccount.teacher.TeacherUserInfoRequest
+import com.codinghub.apps.hive.model.myaccount.teacher.TeacherUserInfoResponse
 import com.codinghub.apps.hive.model.parent.ParentResponse
 import com.codinghub.apps.hive.model.newmember.NewMemberRequest
 import com.codinghub.apps.hive.model.newmember.NewMemberResponse
@@ -44,6 +46,8 @@ interface Repository {
     fun listGrade(request: GradeRequest): LiveData<Either<GradeResponse>>
     fun listRoom(request: RoomRequest): LiveData<Either<RoomResponse>>
     fun listStudent(request: NewStudentRequest): LiveData<Either<NewStudentResponse>>
+
+    fun getTeacherInfo(request: TeacherUserInfoRequest): LiveData<Either<TeacherUserInfoResponse>>
 
     fun getParentInfo(request: ParentUserInfoRequest): LiveData<Either<ParentUserInfoResponse>>
     fun updateParentInformation(request: UpdateParentRequest): LiveData<Either<UpdateParentResponse>>

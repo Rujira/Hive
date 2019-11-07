@@ -81,7 +81,7 @@ class GradeFragment : Fragment(), GradeListAdapter.GradeListRecyclerViewClickLis
 
                     val grades: List<GradeData> = either.data.data
                     gradeRecyclerView.layoutManager = LinearLayoutManager(context)
-                    gradeRecyclerView.adapter = GradeListAdapter(grades, this)
+                    gradeRecyclerView.adapter = GradeListAdapter(grades,   this)
 
                 } else {
 

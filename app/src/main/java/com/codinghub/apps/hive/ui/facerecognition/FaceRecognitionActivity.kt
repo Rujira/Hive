@@ -56,6 +56,7 @@ import java.io.InputStream
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class FaceRecognitionActivity : AppCompatActivity(), GraphicFaceTracker.GraphicFaceTrackerListener, GraphicFaceTracker.GraphicFaceTrackerDismissListener {
 
@@ -354,8 +355,14 @@ class FaceRecognitionActivity : AppCompatActivity(), GraphicFaceTracker.GraphicF
     private fun rotateImage(bitmap: Bitmap, angle: Float): Bitmap {
         val mat : Matrix? = Matrix()
         mat?.postRotate(angle)
-        return Bitmap.createBitmap(bitmap , 0, 0, bitmap.width,
-            bitmap.height, mat, true)
+
+        //resize
+        val constWidth = 1200
+        val ratio: Float = bitmap.width.toFloat() / bitmap.height.toFloat()
+        val height: Int = (constWidth / ratio).roundToInt()
+
+        // return Bitmap.createBitmap(bitmap , 0, 0, bitmap.width, bitmap.height, mat, true)
+        return  Bitmap.createBitmap(bitmap , 0, 0,constWidth, height, mat, true)
     }
 
 

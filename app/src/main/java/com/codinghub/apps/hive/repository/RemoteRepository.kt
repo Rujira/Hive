@@ -19,6 +19,8 @@ import com.codinghub.apps.hive.model.identifyparent.IdentifyParentResponse
 import com.codinghub.apps.hive.model.login.LoginRequest
 import com.codinghub.apps.hive.model.login.LoginResponse
 import com.codinghub.apps.hive.model.myaccount.parent.*
+import com.codinghub.apps.hive.model.myaccount.teacher.TeacherUserInfoRequest
+import com.codinghub.apps.hive.model.myaccount.teacher.TeacherUserInfoResponse
 import com.codinghub.apps.hive.model.parent.ParentResponse
 import com.codinghub.apps.hive.model.newmember.NewMemberRequest
 import com.codinghub.apps.hive.model.newmember.NewMemberResponse
@@ -130,6 +132,24 @@ object RemoteRepository: Repository {
         return liveData
     }
 
+    override fun getTeacherInfo(request: TeacherUserInfoRequest): LiveData<Either<TeacherUserInfoResponse>> {
+        val liveData = MutableLiveData<Either<TeacherUserInfoResponse>>()
+        api.getTeacherInfo(request).enqueue(object : Callback<TeacherUserInfoResponse> {
+            override fun onResponse(call: Call<TeacherUserInfoResponse>, response: Response<TeacherUserInfoResponse>) {
+                if (response.isSuccessful) {
+                    liveData.value = Either.success(response.body())
+                } else {
+                    liveData.value = Either.error(ApiError.GET_TEACHER_INFO, null)
+                }
+            }
+            override fun onFailure(call: Call<TeacherUserInfoResponse>, t: Throwable) {
+                liveData.value = Either.error(ApiError.GET_TEACHER_INFO, null)
+            }
+        })
+
+        return liveData
+    }
+
     override fun getParentInfo(request: ParentUserInfoRequest): LiveData<Either<ParentUserInfoResponse>> {
         val liveData = MutableLiveData<Either<ParentUserInfoResponse>>()
         api.getParentInfo(request).enqueue(object : Callback<ParentUserInfoResponse> {
@@ -204,6 +224,8 @@ object RemoteRepository: Repository {
 
         return liveData
     }
+
+
 
     override fun identifyParent(request: IdentifyParentRequest): LiveData<Either<IdentifyParentResponse>> {
 

@@ -14,7 +14,12 @@ import androidx.appcompat.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.Spinner
+import androidx.core.view.MenuItemCompat
 import androidx.lifecycle.ViewModelProviders
 import com.codinghub.apps.hive.R
 import com.codinghub.apps.hive.model.login.CurrentUser
@@ -35,6 +40,7 @@ import com.codinghub.apps.hive.viewmodel.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.onesignal.OneSignal
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
@@ -102,7 +108,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when(mainViewModel.getCurrentUser().first().role) {
             UserRole.ADMIN -> {
                 switchToFragment(studentFragment)
-
             }
             UserRole.TEACHER -> {
                 switchToFragment(studentFragment)
@@ -146,12 +151,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         when(mainViewModel.getCurrentUser().first().role) {
             UserRole.ADMIN -> {
-                //menuInflater.inflate(R.menu.menu_main, menu)
-                //return true
-                return false
+
+                menuInflater.inflate(R.menu.action_bar_spinner_menu, menu)
+                var item = menu.findItem(R.id.menu_spinner)
+                var spinner = item.actionView as Spinner
+
+                val grade = arrayOf("ป.1", "ป.2", "ป.3", "ป.4")
+                spinner.adapter = ArrayAdapter<String>(this, R.layout.spinner_item, grade)
+
+                spinner.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        Log.d(TAG, "On Nothing Selected")
+                    }
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        Log.d(TAG, "On Item Selected ${grade[position]}")
+                    }
+                }
+                return true
             }
 
-            else -> {
+            UserRole.TEACHER -> {
+                return true
+            }
+
+            UserRole.PARENT -> {
                 return false
             }
         }
@@ -166,6 +189,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //            else -> super.onOptionsItemSelected(item)
 //        }
 //    }
+
+
 
     override fun onBackPressed() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)

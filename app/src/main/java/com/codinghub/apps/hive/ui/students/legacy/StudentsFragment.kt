@@ -18,6 +18,9 @@ import com.codinghub.apps.hive.model.student.student.StudentResponse
 import com.codinghub.apps.hive.model.error.ApiError
 import com.codinghub.apps.hive.model.error.Either
 import com.codinghub.apps.hive.model.error.Status
+import com.codinghub.apps.hive.model.login.UserRole
+import com.codinghub.apps.hive.model.myaccount.teacher.TeacherUserInfoResponse
+import com.codinghub.apps.hive.model.preferences.AppPrefs
 import com.codinghub.apps.hive.viewmodel.StudentsViewModel
 import com.google.android.material.tabs.TabLayout
 
@@ -80,8 +83,39 @@ class StudentsFragment : Fragment() {
 //                }
 //            }
 //        })
+
+
+        when(studentsViewModel.getCurrentUser().first().role) {
+            UserRole.ADMIN -> {
+                //Set Up All Grade and Room
+            }
+            UserRole.TEACHER -> {
+                //Set Up Only They Grade Room
+            }
+            UserRole.PARENT -> {
+
+            }
+        }
+
+        getTeacherInfo(studentsViewModel.getCurrentUser().first().userId, AppPrefs.getSchoolID().toString())
     }
 
+    private fun getTeacherInfo(teacher_id: String, school_id: String) {
+
+        studentsViewModel.getTeacherInfo(teacher_id, school_id).observe(this, Observer<Either<TeacherUserInfoResponse>> { either ->
+            if (either?.status == Status.SUCCESS && either.data != null) {
+                if (either.data.ret == 0) {
+                    Log.d(TAG, "Teacher Data : ${either.data.teacher_info}")
+                } else {
+                    //error
+                }
+            } else {
+                if (either?.error == ApiError.GET_TEACHER_INFO) {
+
+                }
+            }
+        })
+    }
 
     private fun configureRoomViewPager(students: List<StudentData>) {
 

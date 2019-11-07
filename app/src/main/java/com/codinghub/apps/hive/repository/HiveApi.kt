@@ -6,6 +6,8 @@ import com.codinghub.apps.hive.model.identifyparent.IdentifyParentResponse
 import com.codinghub.apps.hive.model.login.LoginRequest
 import com.codinghub.apps.hive.model.login.LoginResponse
 import com.codinghub.apps.hive.model.myaccount.parent.*
+import com.codinghub.apps.hive.model.myaccount.teacher.TeacherUserInfoRequest
+import com.codinghub.apps.hive.model.myaccount.teacher.TeacherUserInfoResponse
 import com.codinghub.apps.hive.model.parent.ParentResponse
 import com.codinghub.apps.hive.model.newmember.NewMemberRequest
 import com.codinghub.apps.hive.model.newmember.NewMemberResponse
@@ -93,6 +95,9 @@ interface HiveApi  {
     @POST("add/sender")
     fun addNewSender(@Body body: AddSenderRequest): Call<AddSenderResponse>
 
+    @Headers("Accept: application/json")
+    @POST("teacher/user_info")
+    fun getTeacherInfo(@Body body: TeacherUserInfoRequest): Call<TeacherUserInfoResponse>
 
     //////////// Notification Module ///////////////////
 
