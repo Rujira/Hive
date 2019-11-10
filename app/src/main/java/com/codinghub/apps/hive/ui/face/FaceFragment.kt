@@ -163,7 +163,7 @@ class FaceFragment : Fragment() {
 
     @SuppressLint("MissingPermission")
     private fun connectCamera() {
-        val deviceId = cameraId(CameraCharacteristics.LENS_FACING_BACK)
+        val deviceId = cameraId(CameraCharacteristics.LENS_FACING_FRONT)
 
         Log.d(TAG, "deviceId: $deviceId")
         try {

@@ -274,6 +274,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val settingsIntent = Intent(this, SettingsActivity::class.java)
         startActivity(settingsIntent)
+
     }
 
     private fun showKioskActivity() {
