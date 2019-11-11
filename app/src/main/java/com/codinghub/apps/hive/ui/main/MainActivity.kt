@@ -20,11 +20,17 @@ import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Spinner
 import androidx.core.view.MenuItemCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.codinghub.apps.hive.R
+import com.codinghub.apps.hive.model.error.ApiError
+import com.codinghub.apps.hive.model.error.Either
+import com.codinghub.apps.hive.model.error.Status
 import com.codinghub.apps.hive.model.login.CurrentUser
 import com.codinghub.apps.hive.model.login.UserRole
 import com.codinghub.apps.hive.model.preferences.AppPrefs
+import com.codinghub.apps.hive.model.student.grade.GradeData
+import com.codinghub.apps.hive.model.student.grade.GradeResponse
 import com.codinghub.apps.hive.ui.face.FaceFragment
 import com.codinghub.apps.hive.ui.home.HomeFragment
 import com.codinghub.apps.hive.ui.facerecognition.FaceRecognitionActivity
@@ -156,17 +162,43 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 var item = menu.findItem(R.id.menu_spinner)
                 var spinner = item.actionView as Spinner
 
-                val grade = arrayOf("ป.1", "ป.2", "ป.3", "ป.4")
-                spinner.adapter = ArrayAdapter<String>(this, R.layout.spinner_item, grade)
 
-                spinner.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener {
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                        Log.d(TAG, "On Nothing Selected")
+                mainViewModel.listGrade(AppPrefs.getSchoolID().toString()).observe(this, Observer<Either<GradeResponse>> { either ->
+                    if (either?.status == Status.SUCCESS && either.data != null) {
+                        if (either.data.ret == 0 && either.data.data.isNotEmpty()) {
+
+
+                            val grades: List<GradeData> = either.data.data
+                            val spinnerTitle = arrayListOf<String>()
+
+                            for (gradeName in grades) {
+                                spinnerTitle.add(gradeName.name)
+                            }
+
+                            spinner.adapter = ArrayAdapter<String>(this, R.layout.spinner_item, spinnerTitle)
+
+                            spinner.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener {
+                                override fun onNothingSelected(parent: AdapterView<*>?) {
+                                    Log.d(TAG, "On Nothing Selected")
+                                }
+                                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                                    Log.d(TAG, "On Item Selected ${grades[position]}")
+                                }
+                            }
+
+                        } else {
+
+
+                        }
+                    } else {
+                        if (either?.error == ApiError.LIST_GRADE) {
+                            //  Toast.makeText(context,R.string.error_retrieving_student, Toast.LENGTH_SHORT).show()
+                        }
                     }
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                        Log.d(TAG, "On Item Selected ${grade[position]}")
-                    }
-                }
+                })
+
+                //val grade = arrayOf("ป.1", "ป.2", "ป.3", "ป.4")
+
                 return true
             }
 

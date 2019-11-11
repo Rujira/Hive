@@ -32,5 +32,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun unregisterUserForPushNotification() = repository.unregisterUserForPushNotification()
 
+    fun listGrade(school_id: String): LiveData<Either<GradeResponse>> {
+        val request = GradeRequest(school_id)
+        return repository.listGrade(request)
+    }
 
 }
