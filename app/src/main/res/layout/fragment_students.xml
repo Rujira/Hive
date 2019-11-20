@@ -5,7 +5,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              tools:context=".ui.students.legacy.StudentsFragment">
+              tools:context=".ui.students.legacy.StudentsFragment"
+                android:id="@+id/studentFragment">
 
     <FrameLayout
             android:layout_width="match_parent"

@@ -3,6 +3,7 @@ package com.codinghub.apps.hive.model.preferences
 import android.preference.PreferenceManager
 import com.codinghub.apps.hive.app.HiveApplication
 import com.codinghub.apps.hive.model.login.CurrentUser
+import com.codinghub.apps.hive.model.student.grade.GradeData
 import com.google.gson.Gson
 
 object AppPrefs {
@@ -20,6 +21,7 @@ object AppPrefs {
     private const val KEY_KIOSK_AUTO_SNAP_MODE = "KEY_KIOSK_AUTO_SNAP_MODE"
     private const val KEY_IS_SHOW_BOUNDING_BOX = "KEY_IS_SHOW_BOUNDING_BOX"
     private const val KEY_DISTANCE = "KEY_DISTANCE"
+    private const val KEY_SELECTED_GRADE = "KEY_SELECTED_GRADE"
 
     private val gson = Gson()
 
@@ -62,6 +64,18 @@ object AppPrefs {
     }
 
     fun getLoginStatus(): Boolean = sharedPrefs().getBoolean(KEY_IS_USER_LOGGED_IN, false)
+
+    fun saveSelectedGrade(grade: GradeData) {
+        sharedPrefs().edit().putString(KEY_SELECTED_GRADE, gson.toJson(grade)).apply()
+    }
+
+    fun getSelectedGrade(): List<GradeData> {
+        return sharedPrefs().all.keys
+            .map { sharedPrefs().getString(KEY_SELECTED_GRADE, "") }
+            .filterNot { it.isNullOrBlank() }
+            .map { gson.fromJson(it, GradeData::class.java) }
+    }
+
 
     fun saveNotificationFlag(topic: String) {
         sharedPrefs().edit().putString(KEY_NOTIFICATION_FLAG, topic).apply()

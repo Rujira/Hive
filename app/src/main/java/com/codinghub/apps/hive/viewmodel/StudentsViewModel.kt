@@ -14,6 +14,7 @@ import com.codinghub.apps.hive.model.myaccount.teacher.TeacherUserInfoResponse
 import com.codinghub.apps.hive.model.pickuprequest.PickUpRequest
 import com.codinghub.apps.hive.model.pickuprequest.PickUpResponse
 import com.codinghub.apps.hive.model.preferences.AppPrefs
+import com.codinghub.apps.hive.model.student.grade.GradeData
 import com.codinghub.apps.hive.model.student.grade.GradeRequest
 import com.codinghub.apps.hive.model.student.grade.GradeResponse
 import com.codinghub.apps.hive.model.student.room.RoomRequest
@@ -60,6 +61,10 @@ class StudentsViewModel(application: Application) : AndroidViewModel(application
     fun listStudent(school_id: String, grade: String, room: String): LiveData<Either<NewStudentResponse>> {
         val request = NewStudentRequest(school_id, grade, room)
         return repository.listStudent(request)
+    }
+
+    fun saveSelectedGrade(selectedGrade: GradeData) {
+        return AppPrefs.saveSelectedGrade(selectedGrade)
     }
 
 }

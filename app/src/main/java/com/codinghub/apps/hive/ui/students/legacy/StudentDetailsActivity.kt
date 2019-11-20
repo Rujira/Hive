@@ -46,7 +46,7 @@ class StudentDetailsActivity : AppCompatActivity() {
         // studentData = intent.getParcelableExtra(StudentListFragment.STUDENT_DETAIL_LIST_KEY)
         studentData = intent.getParcelableExtra(StudentListActivity.STUDENT_LIST_KEY)
 
-        Log.d(TAG, "Student ${intent.getStringExtra(StudentListFragment.STUDENT_NAME_KEY)}")
+       // Log.d(TAG, "Student ${intent.getStringExtra(StudentListFragment.STUDENT_NAME_KEY)}")
         Picasso.get().load("${AppPrefs.getServiceURL()}${AppPrefs.getImagePath()}${AppPrefs.getSchoolID()}/student/${studentData.image}").into(studentDetailImageView)
       //  Picasso.get().load("${AppPrefs.getServiceURL()}${AppPrefs.getStudentImagePath()}${studentData.image}").into(studentDetailImageView)
         studentDetailFullNameTextView.text = studentData.name

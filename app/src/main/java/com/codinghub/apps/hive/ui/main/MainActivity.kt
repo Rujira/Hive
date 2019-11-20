@@ -15,10 +15,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
-import android.widget.Spinner
+import android.widget.*
 import androidx.core.view.MenuItemCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -52,6 +49,7 @@ import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+
     private lateinit var mainViewModel: MainViewModel
 
     private val TAG = MainActivity::class.qualifiedName
@@ -64,16 +62,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private val gradeFragment = GradeFragment()
 
+    private var isStudentFragment: Boolean = false
+
+    companion object {
+        const val INTENT_GRADE_KEY = "gradekey"
+    }
+
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        Log.d(TAG, "onNavigationItemSelectedListener")
+
         val fragment = when (item.itemId) {
             R.id.navigation_home -> homeFragment
             R.id.navigation_students -> studentFragment
-           // R.id.navigation_face -> faceFragment
             R.id.navigation_my_account -> myAccountFragment
             R.id.navigation_notifications -> notificationsFragment
             else -> HomeFragment()
         }
         switchToFragment(fragment)
+        
         true
     }
 
@@ -102,21 +108,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
        // OneSignal.sendTag("role","${AppPrefs.getSchoolID()}:${mainViewModel.getCurrentUser().first().role.name}")
 
-        "user_id:"
        // OneSignal.setExternalUserId("${AppPrefs.getSchoolID().toString()}:${mainViewModel.getCurrentUser().first().userId}")
        // OneSignal.setSubscription(true)
-
-        OneSignal.getTags {
-            Log.d(TAG, "TAG: ${it.toString()}")
-        }
 
 
         when(mainViewModel.getCurrentUser().first().role) {
             UserRole.ADMIN -> {
-                switchToFragment(studentFragment)
+                switchToFragment(homeFragment)
             }
             UserRole.TEACHER -> {
-                switchToFragment(studentFragment)
+                switchToFragment(homeFragment)
             }
             UserRole.PARENT -> {
                 nav_view.menu.findItem(R.id.nav_face_recognition).isVisible = false
@@ -150,67 +151,115 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun switchToFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_container, fragment).commit()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         super.onCreateOptionsMenu(menu)
-
-        when(mainViewModel.getCurrentUser().first().role) {
-            UserRole.ADMIN -> {
-
-                menuInflater.inflate(R.menu.action_bar_spinner_menu, menu)
-                var item = menu.findItem(R.id.menu_spinner)
-                var spinner = item.actionView as Spinner
-
-
-                mainViewModel.listGrade(AppPrefs.getSchoolID().toString()).observe(this, Observer<Either<GradeResponse>> { either ->
-                    if (either?.status == Status.SUCCESS && either.data != null) {
-                        if (either.data.ret == 0 && either.data.data.isNotEmpty()) {
-
-
-                            val grades: List<GradeData> = either.data.data
-                            val spinnerTitle = arrayListOf<String>()
-
-                            for (gradeName in grades) {
-                                spinnerTitle.add(gradeName.name)
-                            }
-
-                            spinner.adapter = ArrayAdapter<String>(this, R.layout.spinner_item, spinnerTitle)
-
-                            spinner.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener {
-                                override fun onNothingSelected(parent: AdapterView<*>?) {
-                                    Log.d(TAG, "On Nothing Selected")
-                                }
-                                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                                    Log.d(TAG, "On Item Selected ${grades[position]}")
-                                }
-                            }
-
-                        } else {
-
-
-                        }
-                    } else {
-                        if (either?.error == ApiError.LIST_GRADE) {
-                            //  Toast.makeText(context,R.string.error_retrieving_student, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                })
-
-                //val grade = arrayOf("ป.1", "ป.2", "ป.3", "ป.4")
-
-                return true
-            }
-
-            UserRole.TEACHER -> {
-                return true
-            }
-
-            UserRole.PARENT -> {
-                return false
-            }
-        }
+        return false
     }
+
+//        when(mainViewModel.getCurrentUser().first().role) {
+//            UserRole.ADMIN -> {
+//
+//                menuInflater.inflate(R.menu.action_bar_spinner_menu, menu)
+//                val item = menu.findItem(R.id.menu_spinner)
+//                val spinner = item.actionView as Spinner
+//
+//                mainViewModel.listGrade(AppPrefs.getSchoolID().toString()).observe(this, Observer<Either<GradeResponse>> { either ->
+//                    if (either?.status == Status.SUCCESS && either.data != null) {
+//                        if (either.data.ret == 0 && either.data.data.isNotEmpty()) {
+//
+//                            val grades: List<GradeData> = either.data.data
+//                            val spinnerTitle = arrayListOf<String>()
+//
+//                            for (gradeName in grades) {
+//                                spinnerTitle.add(gradeName.name)
+//                            }
+//
+//                            spinner.adapter = ArrayAdapter<String>(this, R.layout.spinner_item, spinnerTitle)
+//
+//                            spinner.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener {
+//                                override fun onNothingSelected(parent: AdapterView<*>?) {
+//                                    Log.d(TAG, "On Nothing Selected")
+//                                }
+//                                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                                    Log.d(TAG, "On Item Selected ${grades[position]}")
+//
+//                                    mainViewModel.saveSelectedGrade(grades[position])
+//
+//                                    if (isStudentFragment) {
+//                                        studentFragment.reloadFragment()
+//                                    }
+//                                }
+//                            }
+//
+//                        } else {
+//
+//                            Toast.makeText(this, "Student List is Empty", Toast.LENGTH_SHORT).show()
+//                        }
+//                    } else {
+//                        if (either?.error == ApiError.LIST_GRADE) {
+//                            Toast.makeText(this, R.string.error_retrieving_student, Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//                })
+//
+//                return true
+//            }
+//
+//            UserRole.TEACHER -> {
+//
+//                menuInflater.inflate(R.menu.action_bar_spinner_menu, menu)
+//                val item = menu.findItem(R.id.menu_spinner)
+//                val spinner = item.actionView as Spinner
+//
+//                mainViewModel.listGrade(AppPrefs.getSchoolID().toString()).observe(this, Observer<Either<GradeResponse>> { either ->
+//                    if (either?.status == Status.SUCCESS && either.data != null) {
+//                        if (either.data.ret == 0 && either.data.data.isNotEmpty()) {
+//
+//                            val grades: List<GradeData> = either.data.data
+//                            val spinnerTitle = arrayListOf<String>()
+//
+//                            for (gradeName in grades) {
+//                                spinnerTitle.add(gradeName.name)
+//                            }
+//
+//                            spinner.adapter = ArrayAdapter<String>(this, R.layout.spinner_item, spinnerTitle)
+//
+//                            spinner.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener {
+//                                override fun onNothingSelected(parent: AdapterView<*>?) {
+//                                    Log.d(TAG, "On Nothing Selected")
+//                                }
+//                                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                                    Log.d(TAG, "On Item Selected ${grades[position]}")
+//
+//                                    mainViewModel.saveSelectedGrade(grades[position])
+//                                    if (isStudentFragment) {
+//                                        studentFragment.reloadFragment()
+//                                    }
+//                                }
+//                            }
+//
+//                        } else {
+//
+//                            Toast.makeText(this, "Student List is Empty", Toast.LENGTH_SHORT).show()
+//                        }
+//                    } else {
+//                        if (either?.error == ApiError.LIST_GRADE) {
+//                            Toast.makeText(this, R.string.error_retrieving_student, Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//                })
+//
+//                return true
+//            }
+//
+//            UserRole.PARENT -> {
+//                return false
+//            }
+//        }
+  //  }
 
 //    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 //        return when (item.itemId) {
@@ -221,8 +270,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //            else -> super.onOptionsItemSelected(item)
 //        }
 //    }
-
-
 
     override fun onBackPressed() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -286,12 +333,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         when (currentUser.role) {
             UserRole.ADMIN -> {
-                nav_view_bottom.menu.removeItem(R.id.navigation_home)
+
                 nav_view_bottom.menu.removeItem(R.id.navigation_face)
                 nav_view_bottom.menu.removeItem(R.id.navigation_my_account)
             }
             UserRole.TEACHER -> {
-                nav_view_bottom.menu.removeItem(R.id.navigation_home)
+
                 nav_view_bottom.menu.removeItem(R.id.navigation_face)
                 nav_view_bottom.menu.removeItem(R.id.navigation_my_account)
             }

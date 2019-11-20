@@ -9,15 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.codinghub.apps.hive.R
 import com.codinghub.apps.hive.model.student.student.StudentData
 import com.codinghub.apps.hive.model.preferences.AppPrefs
+import com.codinghub.apps.hive.model.student.studentnew.NewStudentData
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_two_line.view.*
 
-class StudentListAdapter(private val students: List<StudentData>,
+class StudentListAdapter(private val students: List<NewStudentData>,
                          private val clickListener: StudentListRecyclerViewClickListener
 ) : RecyclerView.Adapter<StudentListAdapter.StudentViewHolder>() {
 
     interface StudentListRecyclerViewClickListener {
-        fun studentItemClicked(student: StudentData)
+        fun studentItemClicked(student: NewStudentData)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {

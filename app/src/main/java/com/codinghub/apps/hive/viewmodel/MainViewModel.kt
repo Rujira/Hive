@@ -7,6 +7,7 @@ import com.codinghub.apps.hive.app.Injection
 import com.codinghub.apps.hive.model.error.Either
 import com.codinghub.apps.hive.model.login.CurrentUser
 import com.codinghub.apps.hive.model.preferences.AppPrefs
+import com.codinghub.apps.hive.model.student.grade.GradeData
 import com.codinghub.apps.hive.model.student.grade.GradeRequest
 import com.codinghub.apps.hive.model.student.grade.GradeResponse
 
@@ -28,6 +29,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun saveLoginStatus(isUserLoggedIn: Boolean) {
         return AppPrefs.saveLoginStatus(isUserLoggedIn)
+    }
+
+    fun saveSelectedGrade(selectedGrade: GradeData) {
+        return AppPrefs.saveSelectedGrade(selectedGrade)
     }
 
     fun unregisterUserForPushNotification() = repository.unregisterUserForPushNotification()

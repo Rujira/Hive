@@ -6,9 +6,7 @@ import com.google.android.material.tabs.TabLayout
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 
 import com.codinghub.apps.hive.R
 
@@ -16,6 +14,7 @@ class HomeFragment : Fragment() {
 
     lateinit var homeViewPager: ViewPager
     lateinit var homeTabs: TabLayout
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +28,17 @@ class HomeFragment : Fragment() {
 
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.setGroupVisible(R.id.main_menu_group, false)
+        super.onPrepareOptionsMenu(menu)
+
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
