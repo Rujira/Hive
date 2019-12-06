@@ -63,7 +63,7 @@
         <activity
                 android:name=".ui.main.MainActivity"
                 android:screenOrientation="userPortrait"
-                android:theme="@style/AppTheme.NoActionBar" />
+                android:theme="@style/AppTheme.NoActionBar"/>
         <meta-data
                 android:name="com.onesignal.NotificationOpened.DEFAULT"
                 android:value="DISABLE" />

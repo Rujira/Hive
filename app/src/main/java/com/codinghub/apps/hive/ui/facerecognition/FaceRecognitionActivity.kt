@@ -357,9 +357,12 @@ class FaceRecognitionActivity : AppCompatActivity(), GraphicFaceTracker.GraphicF
         mat?.postRotate(angle)
 
         //resize
+        TODO("Bug very fucking bug!!") 
+
         val constWidth = 1200
         val ratio: Float = bitmap.width.toFloat() / bitmap.height.toFloat()
         val height: Int = (constWidth / ratio).roundToInt()
+
 
         // return Bitmap.createBitmap(bitmap , 0, 0, bitmap.width, bitmap.height, mat, true)
         return  Bitmap.createBitmap(bitmap , 0, 0,constWidth, height, mat, true)

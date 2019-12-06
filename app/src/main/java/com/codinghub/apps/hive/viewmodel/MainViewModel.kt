@@ -42,4 +42,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return repository.listGrade(request)
     }
 
+    fun removeSelectedGrade() {
+        return AppPrefs.removeSelectedGrade()
+    }
+
 }

@@ -48,7 +48,6 @@ class StudentsFragment : Fragment() {
     lateinit var emptyStudentLayout: FrameLayout
 
     private var roomList: MutableList<RoomData> = ArrayList()
-    private var didFinishingIntialView: Boolean = false
 
     private lateinit var pagerAdapter: StudentsViewPagerAdapter
 
@@ -102,7 +101,7 @@ class StudentsFragment : Fragment() {
                             }
 
                             spinner.adapter = ArrayAdapter<String>(activity!!.applicationContext, R.layout.spinner_item, spinnerTitle)
-                            spinner.setSelection(AppPrefs.getSelectedGrade().first().id -1)
+
                             spinner.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener {
                                 override fun onNothingSelected(parent: AdapterView<*>?) {
                                     Log.d(TAG, "On Nothing Selected")
@@ -148,7 +147,6 @@ class StudentsFragment : Fragment() {
                             }
 
                             spinner.adapter = ArrayAdapter<String>(activity!!.applicationContext, R.layout.spinner_item, spinnerTitle)
-                            spinner.setSelection(AppPrefs.getSelectedGrade().first().id -1)
                             spinner.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener {
                                 override fun onNothingSelected(parent: AdapterView<*>?) {
                                     Log.d(TAG, "On Nothing Selected")
@@ -159,7 +157,6 @@ class StudentsFragment : Fragment() {
                                     studentsViewModel.saveSelectedGrade(grades[position])
 
                                     reloadFragment()
-
                                 }
                             }
 
@@ -180,7 +177,6 @@ class StudentsFragment : Fragment() {
 
             }
         }
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -203,8 +199,6 @@ class StudentsFragment : Fragment() {
 
         Log.d(TAG, "Student Fragment On View Created")
        // reloadFragment()
-
-
     }
 
     override fun onDestroyView() {
@@ -212,7 +206,6 @@ class StudentsFragment : Fragment() {
         Log.d(TAG, "On Destroy view")
 
     }
-
 
 
     private fun reloadFragment() {
@@ -256,8 +249,6 @@ class StudentsFragment : Fragment() {
 
     private fun configureRoomViewPager(roomList: List<RoomData>) {
 
-        //val roomTitles = distinctRoomTitleBy(students)
-
         Log.d(TAG, "Configure Room")
 
         pagerAdapter = StudentsViewPagerAdapter(childFragmentManager, roomList)
@@ -265,15 +256,5 @@ class StudentsFragment : Fragment() {
         studentTabs.setupWithViewPager(studentsViewPager)
         pagerAdapter.notifyDataSetChanged()
 
-//        for (room in roomList) {
-//         //   Log.d("StudentTest", "Room : ${room}")
-//            studentsAdapter.addFragment(StudentListFragment(), room.name, room)
-//        }
-//
-//        studentsViewPager.adapter = studentsAdapter
-//        studentTabs.setupWithViewPager(studentsViewPager)
-
     }
-
-
 }

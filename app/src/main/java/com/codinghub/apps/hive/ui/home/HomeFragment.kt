@@ -22,7 +22,7 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        activity?.title = getString(R.string.title_hive_school)
+        activity?.title = "Home"
 
         return inflater.inflate(R.layout.fragment_home, container, false)
 
@@ -56,6 +56,5 @@ class HomeFragment : Fragment() {
         homeViewPager.adapter = adapter
         homeTabs.setupWithViewPager(homeViewPager)
     }
-
 
 }

@@ -76,6 +76,9 @@ object AppPrefs {
             .map { gson.fromJson(it, GradeData::class.java) }
     }
 
+    fun removeSelectedGrade() {
+        sharedPrefs().edit().remove(KEY_SELECTED_GRADE).apply()
+    }
 
     fun saveNotificationFlag(topic: String) {
         sharedPrefs().edit().putString(KEY_NOTIFICATION_FLAG, topic).apply()

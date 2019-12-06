@@ -313,6 +313,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mainViewModel.removeCurrentUser()
         mainViewModel.saveLoginStatus(false)
         mainViewModel.removeSchoolID()
+        mainViewModel.removeSelectedGrade()
 
         val loginIntent = Intent(this, LoginActivity::class.java)
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -386,5 +387,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         startActivity(kioskActivity)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mainViewModel.removeSelectedGrade()
+    }
 
 }
