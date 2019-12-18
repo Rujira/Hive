@@ -304,13 +304,6 @@ class FaceRecognitionActivity : AppCompatActivity(), GraphicFaceTracker.GraphicF
         if (!isTakingPhoto) {
             isTakingPhoto = true
             mCameraSource?.takePicture(null, CameraSource.PictureCallback { data ->
-                Log.d(TAG, "PictureCallback")
-
-                //snapImage = BitmapFactory.decodeByteArray(data, 0, data.size)
-                // testImageView.setImageBitmap(bitmap)
-
-
-                //val ins: InputStream? = contentResolver.openInputStream(data)
 
                 val orientation = Exif.getOrientation(data)
                 val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
@@ -322,8 +315,10 @@ class FaceRecognitionActivity : AppCompatActivity(), GraphicFaceTracker.GraphicF
                     else -> rotateImage(bitmap, 0f)
                 }
 
+                val resizedBitmap = resizeBitmap(snapImage, snapImage.width / 2, snapImage.height / 2)
+
                 val stream = ByteArrayOutputStream()
-                snapImage.compress(Bitmap.CompressFormat.JPEG, 90, stream)
+                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream)
                 val byteArray = stream.toByteArray()
 
               //  var base64String: String
@@ -337,15 +332,6 @@ class FaceRecognitionActivity : AppCompatActivity(), GraphicFaceTracker.GraphicF
                     picture = android.util.Base64.encodeToString(byteArray, android.util.Base64.NO_WRAP)
                 }
 
-//                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
-//                    Log.d(TAG, "Android O")
-//                    picture = Base64.getEncoder().encodeToString(data)
-//
-//                } else {
-//                    Log.d(TAG, "Android Other")
-//                    picture = android.util.Base64.encodeToString(data, android.util.Base64.NO_WRAP)
-//                }
-
                 identifyFace()
             })
         }
@@ -354,10 +340,19 @@ class FaceRecognitionActivity : AppCompatActivity(), GraphicFaceTracker.GraphicF
     private fun rotateImage(bitmap: Bitmap, angle: Float): Bitmap {
         val mat : Matrix? = Matrix()
         mat?.postRotate(angle)
-        return Bitmap.createBitmap(bitmap , 0, 0, bitmap.width,
-            bitmap.height, mat, true)
+
+        return Bitmap.createBitmap(bitmap , 0, 0, bitmap.width, bitmap.height, mat, true)
     }
 
+    private fun resizeBitmap(bitmap: Bitmap, width:Int, height:Int): Bitmap {
+
+        return Bitmap.createScaledBitmap(
+            bitmap,
+            width,
+            height,
+            false
+        )
+    }
 
     private fun identifyFace() {
 

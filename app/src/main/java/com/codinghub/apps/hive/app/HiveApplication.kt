@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.codinghub.apps.hive.ui.notifications.HiveNotificationOpenHandler
 import com.codinghub.apps.hive.ui.notifications.HiveNotificationReceivedHandler
+import com.codinghub.apps.hive.ui.notifications.messages.MessageListFragment
 import com.onesignal.OneSignal
 
 class HiveApplication : Application() {
@@ -21,7 +22,7 @@ class HiveApplication : Application() {
 
         OneSignal.startInit(this)
             .setNotificationOpenedHandler(HiveNotificationOpenHandler())
-            .setNotificationReceivedHandler(HiveNotificationReceivedHandler())
+            .setNotificationReceivedHandler(HiveNotificationReceivedHandler(this))
             .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
             .unsubscribeWhenNotificationsAreDisabled(true)
             .init()

@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.row_three_line.view.rowSubtitleTextView
 import kotlinx.android.synthetic.main.row_three_line.view.rowTitleTextView
 import kotlinx.android.synthetic.main.row_three_line_status.view.*
 
-class RequestListAdapter (private val requests: List<RequestData>,
+class RequestListAdapter (private val requests: MutableList<RequestData>,
                           private val clickListener: RequestListRecyclerViewClickListener) :
     RecyclerView.Adapter<RequestListAdapter.RequestViewHolder>() {
 

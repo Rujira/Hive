@@ -90,7 +90,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
        // OneSignal.sendTag("role","${AppPrefs.getSchoolID()}:${mainViewModel.getCurrentUser().first().role.name}")
 
-        "user_id:"
        // OneSignal.setExternalUserId("${AppPrefs.getSchoolID().toString()}:${mainViewModel.getCurrentUser().first().userId}")
        // OneSignal.setSubscription(true)
 

@@ -12,7 +12,7 @@ import com.codinghub.apps.hive.model.preferences.AppPrefs
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_three_line.view.*
 
-class MessageListAdapter (private val messages: List<MessageData>,
+class MessageListAdapter (private val messages: MutableList<MessageData>,
                           private val clickListener: MessageListRecyclerViewClickListener) :
     RecyclerView.Adapter<MessageListAdapter.MessageViewHolder>() {
 
@@ -26,6 +26,7 @@ class MessageListAdapter (private val messages: List<MessageData>,
     }
 
     override fun getItemCount() = messages.size
+
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
 

@@ -2,20 +2,23 @@ package com.codinghub.apps.hive.ui.notifications.messages
 
 
 import android.app.AlertDialog
-import android.content.DialogInterface
+import android.content.*
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.ScaleGestureDetector
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
@@ -31,8 +34,11 @@ import com.codinghub.apps.hive.model.notifications_message.parent.ParentMessageR
 import com.codinghub.apps.hive.model.notifications_message.teacher.TeacherMessageRequest
 import com.codinghub.apps.hive.model.notifications_message.teacher.TeacherMessageResponse
 import com.codinghub.apps.hive.model.preferences.AppPrefs
+import com.codinghub.apps.hive.ui.notifications.HiveNotificationReceivedHandler
 import com.codinghub.apps.hive.viewmodel.NotificationsViewModel
 import com.google.android.material.chip.Chip
+import com.onesignal.OSNotification
+import com.onesignal.OneSignal
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_messages_list.*
 import kotlinx.android.synthetic.main.fragment_messages_list.view.*
@@ -54,6 +60,17 @@ class MessageListFragment : Fragment(), MessageListAdapter.MessageListRecyclerVi
     private val TAG = MessageListFragment::class.qualifiedName
 
     lateinit var messageDialog: AlertDialog
+
+    val broadCastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+
+            if (intent?.getStringExtra("topic") == "PICKUP") {
+                configureUI(notificationsViewModel.getCurrentUser().first(), false)
+            }
+
+
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,19 +104,31 @@ class MessageListFragment : Fragment(), MessageListAdapter.MessageListRecyclerVi
 
         configureUI(notificationsViewModel.getCurrentUser().first(), false)
 
-
     }
 
-    private fun configureUI(currentUser: CurrentUser, isOnRefresh: Boolean) {
+    override fun onPause() {
+        LocalBroadcastManager.getInstance(activity!!.applicationContext).unregisterReceiver(broadCastReceiver)
 
+        super.onPause()
+    }
+
+    override fun onResume() {
+        LocalBroadcastManager.getInstance(activity!!.applicationContext).registerReceiver(broadCastReceiver, IntentFilter("notification-broadcast"))
+        super.onResume()
+    }
+
+
+    fun configureUI(currentUser: CurrentUser, isOnRefresh: Boolean) {
+
+        Log.d(TAG, "Load Data")
         when(currentUser.role) {
             UserRole.ADMIN -> {
-
+                Log.d(TAG, "Admin")
                 notificationsViewModel.getMessagesForTeacher(AppPrefs.getCurrentUser().first().userId, AppPrefs.getCurrentUser().first().role.rolename, AppPrefs.getSchoolID().toString()).observe(this, Observer<Either<TeacherMessageResponse>> { either ->
                     if (either?.status == Status.SUCCESS && either.data != null) {
                         if (either.data.ret == 0 && either.data.data.isNotEmpty()) {
                             emptyMessageLayout.visibility = View.GONE
-                            val messageList: List<MessageData> = either.data.data
+                            val messageList: MutableList<MessageData> = either.data.data as MutableList<MessageData>
 
                             Log.d(TAG, "MessageResponse : ${messageList}")
 
@@ -132,12 +161,12 @@ class MessageListFragment : Fragment(), MessageListAdapter.MessageListRecyclerVi
             }
 
             UserRole.TEACHER -> {
-
+                Log.d(TAG, "TEACHER")
                 notificationsViewModel.getMessagesForTeacher(AppPrefs.getCurrentUser().first().userId, AppPrefs.getCurrentUser().first().role.rolename, AppPrefs.getSchoolID().toString()).observe(this, Observer<Either<TeacherMessageResponse>> { either ->
                     if (either?.status == Status.SUCCESS && either.data != null) {
                         if (either.data.ret == 0 && either.data.data.isNotEmpty()) {
                             emptyMessageLayout.visibility = View.GONE
-                            val messageList: List<MessageData> = either.data.data
+                            val messageList: MutableList<MessageData> = either.data.data as MutableList<MessageData>
 
                             Log.d(TAG, "MessageResponse : ${messageList}")
 
@@ -169,13 +198,17 @@ class MessageListFragment : Fragment(), MessageListAdapter.MessageListRecyclerVi
             }
 
             UserRole.PARENT -> {
-
-                val pid = notificationsViewModel.getCurrentUser().first().userId
+                Log.d(TAG, "PARENT")
+                //val pid = notificationsViewModel.getCurrentUser().first().userId
                 notificationsViewModel.getMessagesForParent(AppPrefs.getCurrentUser().first().userId, AppPrefs.getCurrentUser().first().role.rolename, AppPrefs.getSchoolID().toString()).observe(this, Observer<Either<ParentMessageResponse>> { either ->
+
+                    Log.d(TAG, "getMessagesForParent")
                     if (either?.status == Status.SUCCESS && either.data != null) {
+                        Log.d(TAG, "Status.SUCCESS")
                         if (either.data.ret == 0 && either.data.data.isNotEmpty()) {
+                            Log.d(TAG, "Status.isNotEmpty")
                             emptyMessageLayout.visibility = View.GONE
-                            val messageList: List<MessageData> = either.data.data
+                            val messageList: MutableList<MessageData> = either.data.data as MutableList<MessageData>
 
                             Log.d(TAG, "MessageResponse : ${messageList}")
                             messageRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -210,6 +243,7 @@ class MessageListFragment : Fragment(), MessageListAdapter.MessageListRecyclerVi
             swipeRefreshLayout.isRefreshing = false
         }
     }
+
 
     override fun messageItemClicked(message: MessageData) {
         listener?.onMessageItemClicked(message)

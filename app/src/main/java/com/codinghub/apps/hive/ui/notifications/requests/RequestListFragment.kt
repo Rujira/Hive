@@ -1,7 +1,7 @@
 package com.codinghub.apps.hive.ui.notifications.requests
 
 import android.app.AlertDialog
-import android.content.DialogInterface
+import android.content.*
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
@@ -56,6 +57,15 @@ class RequestListFragment : Fragment(), RequestListAdapter.RequestListRecyclerVi
 
     lateinit var confirmDialog: AlertDialog
 
+    val broadCastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+
+            if (intent?.getStringExtra("topic") == "REQUEST") {
+                loadData(notificationsViewModel.getCurrentUser().first(), false)
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -89,6 +99,18 @@ class RequestListFragment : Fragment(), RequestListAdapter.RequestListRecyclerVi
 
     }
 
+    override fun onPause() {
+        LocalBroadcastManager.getInstance(activity!!.applicationContext).unregisterReceiver(broadCastReceiver)
+
+        super.onPause()
+    }
+
+    override fun onResume() {
+        LocalBroadcastManager.getInstance(activity!!.applicationContext).registerReceiver(broadCastReceiver, IntentFilter("notification-broadcast"))
+        super.onResume()
+    }
+
+
     private fun loadData(currentUser: CurrentUser, isOnRefresh: Boolean) {
 
         when(currentUser.role) {
@@ -102,7 +124,7 @@ class RequestListFragment : Fragment(), RequestListAdapter.RequestListRecyclerVi
                     if (either?.status == Status.SUCCESS && either.data != null) {
                         if (either.data.ret == 0 && either.data.data.isNotEmpty()) {
                             emptyRequestLayout.visibility = View.INVISIBLE
-                            val requestList: List<RequestData> = either.data.data
+                            val requestList: MutableList<RequestData> = either.data.data as MutableList<RequestData>
 
                             Log.d(TAG, "RequestResponse : ${requestList}")
 
@@ -142,7 +164,7 @@ class RequestListFragment : Fragment(), RequestListAdapter.RequestListRecyclerVi
                     if (either?.status == Status.SUCCESS && either.data != null) {
                         if (either.data.ret == 0 && either.data.data.isNotEmpty()) {
                             emptyRequestLayout.visibility = View.INVISIBLE
-                            val requestList: List<RequestData> = either.data.data
+                            val requestList: MutableList<RequestData> = either.data.data as MutableList<RequestData>
 
                             Log.d(TAG, "RequestResponse : ${requestList}")
 
@@ -183,7 +205,7 @@ class RequestListFragment : Fragment(), RequestListAdapter.RequestListRecyclerVi
                     if (either?.status == Status.SUCCESS && either.data != null) {
                         if (either.data.ret == 0 && either.data.data.isNotEmpty()) {
                             emptyRequestLayout.visibility = View.GONE
-                            val requestList: List<RequestData> = either.data.data
+                            val requestList: MutableList<RequestData> = either.data.data as MutableList<RequestData>
 
                             Log.d(TAG, "RequestResponse : ${requestList}")
 

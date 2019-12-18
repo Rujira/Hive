@@ -41,18 +41,6 @@ class HiveNotificationOpenHandler : OneSignal.NotificationOpenedHandler {
 
             }
         }
-
-
-
-
-
-        // Add the following to your AndroidManifest.xml to prevent the launching of your main Activity
-        //  if you are calling startActivity above.
-        /*
-        <application ...>
-          <meta-data android:name="com.onesignal.NotificationOpened.DEFAULT" android:value="DISABLE" />
-        </application>
-           */
     }
 
 }
